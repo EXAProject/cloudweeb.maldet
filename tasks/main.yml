@@ -43,5 +43,18 @@
       yum: 
       name: inotify
         state: latest
+- name: Restart service httpd, in all cases
+  service:
+    name: httpd
+    state: restarted
+ - name:  run maldet in monitor mode
+    replace:
+      path:  /etc/sysconfig/maldet
+      regexp: '#MONITOR_MODE="users"'
+      replace: 'MONITOR_MODE="users"'
+ - name: Restart service maldet
+  service:
+    name: maldet
+    state: restarted
 
  
