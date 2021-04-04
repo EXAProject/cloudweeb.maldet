@@ -35,3 +35,13 @@
   when:
     - maldet_service_enabled|bool
     - maldet_default_monitor_mode is defined and maldet_default_monitor_mode
+- name: Install Glibc
+      yum: 
+      name: Glibc
+        state: latest
+- name: Install inotify
+      yum: 
+      name: inotify
+        state: latest
+
+ 
