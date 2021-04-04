@@ -35,26 +35,24 @@
   when:
     - maldet_service_enabled|bool
     - maldet_default_monitor_mode is defined and maldet_default_monitor_mode
-- name: Install Glibc
-      yum: 
-      name: Glibc
-        state: latest
+- name: Install the latest version of Glibc
+  yum:
+    name: Glibc
+    state: latest
 - name: Install inotify
-      yum: 
-      name: inotify
-        state: latest
+  yum:
+    name: inotify
+    state: latest
 - name: Restart service httpd, in all cases
   service:
     name: httpd
     state: restarted
- - name:  run maldet in monitor mode
-    replace:
-      path:  /etc/sysconfig/maldet
+- name:  run maldet in monitor mode
+  replace:
+      path: /etc/sysconfig/maldet
       regexp: '#MONITOR_MODE="users"'
       replace: 'MONITOR_MODE="users"'
- - name: Restart service maldet
+- name: Restart service maldet
   service:
     name: maldet
     state: restarted
-
- 
