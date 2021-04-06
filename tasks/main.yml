@@ -3,8 +3,8 @@
   tasks:
 - name: Get maldet installer archive
     get_url:
-    url: https://www.rfxn.com/downloads/maldetect-current.tar.gz
-    dest: /tmp
+       url: https://www.rfxn.com/downloads/maldetect-current.tar.gz
+       dest: /tmp
   register: __maldet_download
   until: __maldet_download is succeeded
   retries: 5
