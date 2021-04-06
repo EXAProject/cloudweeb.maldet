@@ -1,4 +1,5 @@
 ---
+
 - name: Get maldet installer archive
   get_url:
     url: https://www.rfxn.com/downloads/maldetect-current.tar.gz
@@ -17,22 +18,24 @@
 - name: Installing maldet
   command: bash install.sh
   args:
-    chdir: "/tmp/maldetect-1.6.4"
+    chdir: "/tmp/maldetect-{{ maldet_version }}"
     creates: /usr/local/sbin/maldet
 
 - name: Configuring maldet
   template:
     src: maldet_conf.maldet.j2
     dest: /usr/local/maldetect/conf.maldet
-#  notify: restart maldet
+
 - name: Ensure epel repo present
   yum:
     name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     state: present
+
 - name: Install the latest version of Glibc
   yum:
     name: glibc.i686
     state: latest
+
 - name: Install inotify
   yum:
     name: inotify-tools
@@ -46,11 +49,13 @@
   when:
     - maldet_service_enabled|bool
     - maldet_default_monitor_mode is defined and maldet_default_monitor_mode
+
 - name:  run maldet in monitor mode
   replace:
       path: /etc/sysconfig/maldet
       regexp: '#MONITOR_MODE="users"'
       replace: 'MONITOR_MODE="users"'
+
 - name: Restart service maldet
   service:
     name: maldet
