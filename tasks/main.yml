@@ -1,5 +1,7 @@
 ---
 
+  hosts: all
+  tasks:
 - name: Get maldet installer archive
   get_url:
     url: https://www.rfxn.com/downloads/maldetect-current.tar.gz
